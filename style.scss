@@ -1,0 +1,57 @@
+body {
+  font-family: Arial, sans-serif;
+  font-size: 30px;
+
+  div.calendar {
+    margin-top: 50px;
+    display: grid;
+    grid-template: repeat(5, 100px) / repeat(7, 100px);
+    grid-gap: 1px;
+    justify-content: center;
+
+    div {
+      height: 100px;
+      width: 100px;
+      text-align: center;
+      background: #eee;
+      display: none;
+      border: 1px solid black;
+      line-height: 100px;
+    }
+
+    div:hover {
+      background-color: pink;
+      transform: translateY(-20px);
+      cursor: pointer;
+    }
+
+
+  }
+}
+@for $days from 1 through 31 {
+  @for $single-day from 1 through $days {
+    div.calendar-#{$days} div:nth-child(#{$single-day}){
+      display: block;
+    }
+
+    div.calendar-#{$days} div:nth-child(#{$single-day})::after {
+      content: "#{$single-day}";
+    }
+  }
+}
+
+$week: (
+        mon: 1,
+        tue: 2,
+        wed: 3,
+        thu: 4,
+        fri: 5,
+        sat: 6,
+        sun: 7
+);
+
+@each $day, $num in $week {
+  div.calendar-#{$day} div:first-child {
+    grid-column-start: #{$num};
+  }
+}
